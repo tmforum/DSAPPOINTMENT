@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<!-- Default Derby (H2) database configuration -->
+<!-- Comment this configuration if you are using a MySql database (see below) -->
+<resources>
+    <jdbc-connection-pool datasource-classname="org.apache.derby.jdbc.ClientDataSource" res-type="javax.sql.DataSource" name="appointementpool">
+        <property name="URL" value="jdbc:derby://localhost:1527/appointementdb"></property>
+        <property name="User" value="app"></property>
+        <property name="Password" value="app"></property>
+        <property name="PortNumber" value="1527"></property>
+        <property name="DatabaseName" value="appointementdb"></property>
+        <property name="serverName" value="localhost"></property>
+        <property name="description" value="RI TMF POOL"/>
+    </jdbc-connection-pool>
+    <jdbc-resource jndi-name="jdbc/appointementdb" pool-name="appointementpool"></jdbc-resource>
+</resources>
+
+<!-- MySQL database configuration -->
+<!-- Uncomment the configuration below if you are using a MySql database :
+        Don't forget to update the databasename property as well <databasename> -->
+<!--resources>
+    <jdbc-connection-pool driver-classname="" datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" res-type="javax.sql.DataSource" name="ritmfpool">
+        <property name="User" value="${username}"></property>
+        <property name="Password" value="${password}"></property>
+        <property name="ServerName" value="${db_host}"></property>
+        <property name="PortNumber" value="${db_port}"></property>
+        <property name="databaseName" value="<databasename>"/>
+        <property name="URL" value="jdbc:mysql://${db_host}:${db_port}/<databasename>"/>
+        <property name="description" value="RI TMF POOL"/>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource jndi-name="jdbc/tmfapi" pool-name="ritmfpool"></jdbc-resource>
+</resources-->

@@ -1,0 +1,34 @@
+package org.tmf.dsmapi.freeSlot;
+
+import org.tmf.dsmapi.commons.workflow.StateModelBase;
+import org.tmf.dsmapi.appointment.model.LifecycleStateValues;
+
+public class StateModelImpl extends StateModelBase<LifecycleStateValues> {
+    
+    /**
+     *
+     */
+    public StateModelImpl() {
+        super(LifecycleStateValues.class);
+    }    
+
+    /**
+     *
+     */
+    @Override
+    protected void draw() {
+        // First
+        fromFirst(LifecycleStateValues.PENDING).to(LifecycleStateValues.AVAILABLE);
+
+        // Somewhere
+        from(LifecycleStateValues.AVAILABLE).to(LifecycleStateValues.RESERVED);
+        from(LifecycleStateValues.RESERVED).to(LifecycleStateValues.IN_USE);       
+        from(LifecycleStateValues.IN_USE).to(LifecycleStateValues.AVAILABLE, 
+                LifecycleStateValues.BLACK_LISTED,
+                LifecycleStateValues.OUT_OF_USE);
+        from(LifecycleStateValues.BLACK_LISTED).to(LifecycleStateValues.OUT_OF_USE);
+
+        // Final
+        from(LifecycleStateValues.OUT_OF_USE);
+    }
+}

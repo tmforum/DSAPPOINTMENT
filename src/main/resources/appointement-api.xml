@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<api xmlns="http://orange.com/soa/schemas/oadl/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="appointment" projectName="tmf" majorVersion="1" minorVersion="0" namespace="http://orange.com/api/appointment/tmf/v1" xsi:schemaLocation="http://orange.com/soa/schemas/oadl/v1 oadl.xsd">
+    <model location="model_business.xsd" namespace="http://orange.com/api/appointment/tmf/v1/model/business"/>
+    <resource class="Appointment">
+        <actions>
+            <create>
+                <doc lang="fr">After checking free slots, this operation is used to create an appointment with all its characteristics.</doc>
+                <ko code="400" name="bad_request"/>
+            </create>
+            <find>
+                <doc lang="fr">This operation is used to retrieve appointment information using filter criteria. Especially criteria like period or party 
+Filtering selection is enabled on all attributes: first level and inner classes</doc>
+                <ko code="400" name="bad_request"/>
+            </find>
+            <get>
+                <doc lang="fr">This operation is used to research an appointment by its identifier.
+Note that collections can be retrieved via GET /api/appointment with no {ID}</doc>
+                <ko code="404" name="not_found"/>
+            </get>
+            <patch>
+                <doc lang="fr">This operation can be used to update an appointment if information has changed. 
+This is also used to cancel an appointment by modifying the status. The new status is ‘cancelled’.</doc>
+            </patch>
+        </actions>
+        <resource class="Schedule">
+            <actions>
+                <create>
+                    <doc lang="fr">This operation is used to retrieve relevant free slots, available for rescheduling an existing appointment on.</doc>
+                    <ko code="400" name="bad_request"/>
+                </create>
+            </actions>
+        </resource>
+    </resource>
+    <resource class="FreeSlot" alias="">
+        <actions>
+            <custom name="GetFreeSlot" enable="false"/>
+            <custom name="Schedule" enable="true">
+                <param type="Schedule" name="Schedule" header="false" required="false"/>
+            </custom>
+        </actions>
+    </resource>
+</api>
