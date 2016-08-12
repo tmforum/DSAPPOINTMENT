@@ -174,7 +174,7 @@ public class AppointmentResource {
         final JsonNode patchedNode = patch.apply(currentNode);
         //check RG Patch
         Appointment patchEntity = mapper.convertValue(patchedNode, Appointment.class);
-        appointmentFacade.checkPatchAttributs(patchEntity);
+        //appointmentFacade.checkPatchAttributs(patchEntity);
         //transforme le JsonNode en Bean
         Appointment patchCategory = mapper.treeToValue(patchedNode, Appointment.class);
         //appel à la persistence
