@@ -1,0 +1,1365 @@
+{
+    "id": "",
+    "name": "Default",
+    "timestamp": 1470646752695,
+    "collection_id": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+    "folder_id": 0,
+    "target_type": "collection",
+    "environment_id": "e9ff5be6-a134-95a0-3719-abe85cd8241b",
+    "count": 1,
+    "collection": {
+        "id": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+        "name": "AppointementManagement",
+        "description": "",
+        "order": [],
+        "folders": [
+            {
+                "id": "04aa5f30-a9e2-9795-b05c-2d2e4628e24b",
+                "name": "Appointment",
+                "description": "",
+                "order": [
+                    "c49f0a6e-51c0-3190-5eaf-3dbb2f853472",
+                    "7bc0ebd7-5bdc-e84e-ffbb-51a854962201",
+                    "87205aac-7fca-29a3-c572-d1a3959b50b7",
+                    "d53c8c68-d5f5-c0b3-4c36-25932d7c90a2",
+                    "e20ef3a2-e5bf-2192-96dd-54530e072308",
+                    "de34d14f-b250-739a-ec35-d540ed11e9d3",
+                    "1a4e89b4-6b17-07a4-b7d4-a30014ca205b"
+                ],
+                "owner": 0,
+                "collectionId": "891fc6b9-c154-c43c-34a3-5d7a4fe77197"
+            },
+            {
+                "id": "b33c61d3-f26c-dbd1-8beb-d3baea14c3a0",
+                "name": "freeSlot",
+                "description": "",
+                "order": [
+                    "af5c0cc9-ab76-3d9f-1ac1-8efe7bd45d6c",
+                    "b1ee0d24-9e1f-5779-1220-bf043fc8f44d",
+                    "0f2a3c68-656e-8610-c5d8-e8bab4e9cfed"
+                ],
+                "owner": 0
+            }
+        ],
+        "timestamp": 1452703682607,
+        "owner": 0,
+        "remoteLink": "",
+        "public": false,
+        "requests": [
+            {
+                "id": "0f2a3c68-656e-8610-c5d8-e8bab4e9cfed",
+                "headers": "Content-Type: application/json\nAccept: application/json\n",
+                "url": "{{Host}}/DSAppointment/api/appointment/v1/freeSlot/search",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "POST",
+                "data": [],
+                "dataMode": "raw",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\nif( typeof(dataOut.freeSlot) !== 'undefined' && dataOut.freeSlot.length > 0) {\n    var freeSlots = dataOut.freeSlot;\n    for(var i = 0; i < freeSlots.length; i++) {\n        if (typeof(freeSlots[i].relatedParty) !== 'undefined' && freeSlots[i].relatedParty.length > 0) {\n            var parties = freeSlots[i].relatedParty;\n            for(var j =0; j < parties.length; j++) {\n                tests[\"Response contains RelatedParty \"] = (parties[j].id && parties[j].id.toString() !== \"\") || (parties[j].href && parties[j].href.toString() !== \"\");\n            }\n        }\n        \n    }\n}",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470642366378,
+                "name": "search freeslot with appointment",
+                "description": "search freeslots with appointment",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": [],
+                "rawModeData": "{  \r\n    \"appointmentId\":\"1\"\r\n}  \r\n"
+            },
+            {
+                "id": "1a4e89b4-6b17-07a4-b7d4-a30014ca205b",
+                "headers": "Content-Type: application/json-patch+json\n//Accept: application/json-patch+json\n",
+                "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment/{{APPOINTMENT_ID2}}",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "PATCH",
+                "data": [],
+                "dataMode": "raw",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Response contains ID \" + dataOut.id.toString()] = dataOut.id.toString() !== \"\";\n\ntests[\"Response contains Category \" + dataOut.category.toString()] = dataOut.category.toString() !== \"\";\n\ntests[\"Response contains StartDate \" + dataOut.startDate.toString()] = dataOut.startDate.toString() !== \"\";\n\ntests[\"Response contains EndDate \" + dataOut.endDate.toString()] = dataOut.endDate.toString() !== \"\";\n\ntests[\"Response contains Address \"] = (dataOut.address.id && dataOut.address.id.toString() !== \"\") || (dataOut.address.href && dataOut.address.href.toString() !== \"\");\n\nif( typeof(dataOut.relatedParty) !== 'undefined' && dataOut.relatedParty.length > 0) {\n    var parties = dataOut.relatedParty;\n    for(var i = 0; i < parties.length; i++) {\n        tests[\"Response contains RelatedParty \"] = (parties[i].id && parties[i].id.toString() !== \"\") || (parties[i].href && parties[i].href.toString() !== \"\");\n    }\n}\n\n\n\n",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470645381445,
+                "name": "Canceled appointement json-patch copy",
+                "description": " with json-patch",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": [],
+                "folder": "04aa5f30-a9e2-9795-b05c-2d2e4628e24b",
+                "rawModeData": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"Cancelled\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/relatedParty/-\",\n    \"value\": {\n      \"href\": \"http://xxxxx/individual/ 99\",\n      \"id\": \"99\",\n      \"role\": \"customer\",\n      \"name\": \"NewPerson\"\n    }\n  }\n\n]"
+            },
+            {
+                "id": "7bc0ebd7-5bdc-e84e-ffbb-51a854962201",
+                "headers": "Content-Type: application/json\nAccept: application/json\n",
+                "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "POST",
+                "data": [],
+                "dataMode": "raw",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Response contains ID \" + dataOut.id.toString()] = dataOut.id.toString() !== \"\";\n\ntests[\"Response contains Category \" + dataOut.category.toString()] = dataOut.category.toString() !== \"\";\n\ntests[\"Response contains StartDate \" + dataOut.startDate.toString()] = dataOut.startDate.toString() !== \"\";\n\ntests[\"Response contains EndDate \" + dataOut.endDate.toString()] = dataOut.endDate.toString() !== \"\";\n\ntests[\"Response contains Address \"] = (dataOut.address.id && dataOut.address.id.toString() !== \"\") || (dataOut.address.href && dataOut.address.href.toString() !== \"\");\n\nif( typeof(dataOut.relatedParty) !== 'undefined' && dataOut.relatedParty.length > 0) {\n    var parties = dataOut.relatedParty;\n    for(var i = 0; i < parties.length; i++) {\n        tests[\"Response contains RelatedParty \"] = (parties[i].id && parties[i].id.toString() !== \"\") || (parties[i].href && parties[i].href.toString() !== \"\");\n    }\n}\n\n\n\npostman.setGlobalVariable(\"APPOINTMENT_ID2\", dataOut.id.toString());\n\npostman.setGlobalVariable(\"lastResponse\" + postman.getEnvironmentVariable(\"testName\"), dataOut);\npostman.setGlobalVariable(\"lastRequest\"+ postman.getEnvironmentVariable(\"testName\"), request.data );\n\nvar dataIn = JSON.parse(request.data);\n\nconsole.log(\"request \" + dataIn);\nconsole.log(\"request type\" + typeof(dataIn));\n\n\nif (dataIn.externalId) {\n    tests[\"POST Body Response externalId equals Request externalId\"  ] = objectEquals(dataIn.externalId, dataOut.externalId);\n}\nif (dataIn.category) {\n    tests[\"POST Body Response category equals Request category\"  ] = objectEquals(dataIn.category, dataOut.category);\n}\nif (dataIn.description) {\n    tests[\"POST Body Response description equals Request description\"  ] = objectEquals(dataIn.description, dataOut.description);\n}\nif (dataIn.status) {\n    tests[\"POST Body Response status equals Request status\"  ] = objectEquals(dataIn.status, dataOut.status);\n}\nif (dataIn.alarm) {\n    tests[\"POST Body Response alarm equals Request alarm\"  ] = objectEquals(dataIn.alarm, dataOut.alarm);\n}\n\nif (dataIn.startDate) {\n    tests[\"POST Body Response startDate equals Request startDate\"  ] = objectEquals(dataIn.startDate, dataOut.startDate);\n}\nif (dataIn.endDate) {\n    tests[\"POST Body Response endDate equals Request endDate\"  ] = objectEquals(dataIn.endDate, dataOut.endDate);\n}\n\nif (dataIn.attachment) {\n    tests[\"POST Body Response attachment equals Request attachment\"  ] = objectEquals(dataIn.attachment, dataOut.attachment);\n}\n\nif (dataIn.relatedParty) {\n    tests[\"POST Body Response relatedParty equals Request relatedParty\"  ] = objectEquals(dataIn.relatedParty, dataOut.relatedParty);\n}\n\nif (dataIn.address) {\n    tests[\"POST Body Response address equals Request address\"  ] = objectEquals(dataIn.address, dataOut.address);\n}\nif (dataIn.relatedObject) {\n    tests[\"POST Body Response relatedObject equals Request relatedObject\"  ] = objectEquals(dataIn.relatedObject, dataOut.relatedObject);\n}\nif (dataIn.note) {\n    tests[\"POST Body Response note equals Request note\"  ] = objectEquals(dataIn.note, dataOut.note);\n}\n\n\n\n\n\n\n\n\n\nfunction objectEquals(v1, v2) {\n    if (typeof(v1) !== typeof(v2)) {\n         console.log(\"property typeof(v1) !==typeof(v2)\" + typeof(v1)  + typeof(v2) + \"==>\" + v1 + \"!=\" + v2);\n        return false;\n    }\n\n    if (typeof(v1) === \"function\") {\n        return v1.toString() === v2.toString();\n    }\n\n    if (v1 instanceof Object && v2 instanceof Object) {\n       \n        var r = true;\n        for (var k in v1) {\n            r = objectEquals(v1[k], v2[k]);\n            \n            if (!r) {\n                 tests[\"property \" + k.toString() + \"==>\" + v1[k] + \"!=\" + v2[k]] = false;\n                 console.log(\"property \" + k.toString() + \"==>\" + v1[k] + \"!=\" + v2[k]);\n                 postman.setGlobalVariable(\"unequal\" +  k.toString(), v1[k] + \"!=\" + v2[k]);\n                \n                return false;\n            } else {\n                 //tests[\"property \" + k.toString() + \"==>\" + v1[k] + \"=\" + v2[k]] = true;\n            }\n        }\n        return true;\n    } else {\n        return v1 === v2;\n    }\n}",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470642143004,
+                "name": "create an appointement",
+                "description": "create an appointement",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": [],
+                "rawModeData": "{\r\n    \"externalId\" : \"anExternalIDIfNeeded432113\",  \r\n   \"category\" : \"intervention\",  \r\n   \"description\" : \"A useful text to describe the appointment…\",  \r\n   \"status\" : \"Initialised\",  \r\n   \"startDate\" : \"2015-09-01T22:00:43+08:00\",  \r\n   \"endDate\" : \"2015-09-02T00:00:43+08:00\",  \r\n   \"alarm\" : false,  \r\n   \"attachment\":[  \r\n      {  \r\n         \"href\" : \"http://myDocumentServer/myRep/myDocument.pdf\"  \r\n      }  \r\n   ],  \r\n   \"relatedParty\" : [\r\n      {  \r\n         \"id\" : \"32\",  \r\n         \"href\" : \"http://xxxxx/individual/ 32\",  \r\n         \"role\" : \"customer\",  \r\n         \"name\" : \"John Doe\"  \r\n      }\r\n   ],  \r\n   \"address\" : {  \r\n      \"id\" : \"jkfdjgkldjf\",\r\n      \"href\" : \"http://xxx/address/jkfdjgkldjf\"\r\n   },  \r\n   \"relatedObject\":[  \r\n      {  \r\n         \"involvement\" : \"problemToSolve\",  \r\n         \"reference\" : \"http://xxxx/troubleTicket/789745465\"  \r\n      }  \r\n   ],\r\n   \"note\":[  \r\n      {  \r\n         \"date\":\"2015-09-01T22:40:43+08:00\",  \r\n         \"author\":\"Arthur Ewans\",\r\n         \"text\":\" Alreay called the expert \"\r\n      }  \r\n   ]  \r\n}\r\n"
+            },
+            {
+                "id": "87205aac-7fca-29a3-c572-d1a3959b50b7",
+                "headers": "Content-Type: application/json\nAccept: application/json\n",
+                "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "GET",
+                "data": [],
+                "dataMode": "params",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\nif (typeof(dataOut)!=='undefined' && dataOut.length>0) {\n    var items = dataOut;\n    for (var i = 0; i < items.length; i++) {\n        tests[\"Response contains ID \" + items[i].id.toString()] = items[i].id.toString() !== \"\";\n\n        tests[\"Response contains Category \" + items[i].category.toString()] = items[i].category.toString() !== \"\";\n        \n        tests[\"Response contains StartDate \" + items[i].startDate.toString()] = items[i].startDate.toString() !== \"\";\n        \n        tests[\"Response contains EndDate \" + items[i].endDate.toString()] = items[i].endDate.toString() !== \"\";\n        \n        tests[\"Response contains Address \"] = (items[i].address.id && items[i].address.id.toString() !== \"\") || (items[i].address.href && items[i].address.href.toString() !== \"\");\n        \n        if( typeof(items[i].relatedParty) !== 'undefined' && items[i].relatedParty.length > 0) {\n            var parties = items[i].relatedParty;\n            for(var i = 0; i < parties.length; i++) {\n                tests[\"Response contains RelatedParty \"] = (parties[i].id && parties[i].id.toString() !== \"\") || (parties[i].href && parties[i].href.toString() !== \"\");\n            }\n        }\n    }\n}",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470373614936,
+                "name": "find appointement",
+                "description": "find appointement",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": []
+            },
+            {
+                "id": "af5c0cc9-ab76-3d9f-1ac1-8efe7bd45d6c",
+                "headers": "Content-Type: application/json\nAccept: application/json\n",
+                "url": "{{Host}}/DSAppointment/api/admin/freeSlot",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "POST",
+                "data": [],
+                "dataMode": "raw",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 201\"] = responseCode.code === 201;\n\n\ntests[\"Free slots are checked according to criteria \" ] = parseInt(dataOut.previousRows.toString())+parseInt(dataOut.affectedRows.toString())===parseInt(dataOut.currentRows.toString());",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470362560260,
+                "name": "create freeslot",
+                "description": "create freeslots",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": [],
+                "rawModeData": "[{  \r\n   \"marketSegment\" : \"B2C\",  \r\n   \"favoriteAmpm\": \"PM\",\r\n   \"weekNumber\": \"36\",\r\n   \"category\": \"\",\r\n   \"limit\": \"5\",\r\n   \"productSpecification\": [{  \r\n      \"id\":\"productSpec42\"  \r\n   }],  \r\n    \"address\":{  \r\n      \"id\":\"jkfdjgkldjf\",  \r\n      \"href\" : \"http://xxx/address/jkfdjgkldjf\"\r\n   },\r\n   \"relatedParty\" : [{  \r\n     \"id\" : \"32\",  \r\n     \"href\" : \"http://xxxxx/individual/ 32\",  \r\n     \"role\" : \"customer\",  \r\n     \"name\" : \"John Doe\" \r\n  }]\r\n} ]\r\n"
+            },
+            {
+                "id": "b1ee0d24-9e1f-5779-1220-bf043fc8f44d",
+                "headers": "Content-Type: application/json\nAccept: application/json\n",
+                "url": "{{Host}}/DSAppointment/api/appointment/v1/freeSlot",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "POST",
+                "data": [],
+                "dataMode": "raw",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\nif( typeof(dataOut.freeSlot) !== 'undefined' && dataOut.freeSlot.length > 0) {\n    var freeSlots = dataOut.freeSlot;\n    for(var i = 0; i < freeSlots.length; i++) {\n        if (typeof(freeSlots[i].relatedParty) !== 'undefined' && freeSlots[i].relatedParty.length > 0) {\n            var parties = freeSlots[i].relatedParty;\n            for(var j =0; j < parties.length; j++) {\n                tests[\"Response contains RelatedParty \"] = (parties[j].id && parties[j].id.toString() !== \"\") || (parties[j].href && parties[j].href.toString() !== \"\");\n            }\n        }\n        \n    }\n}",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470379697728,
+                "name": "search freeslot",
+                "description": "search freeslots with schedule",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": [],
+                "rawModeData": "{  \r\n   \"marketSegment\" : \"B2C\",  \r\n   \"favoriteAmpm\": \"PM\",\r\n   \"weekNumber\": \"36\",\r\n   \"category\": \"\",\r\n   \"limit\": \"5\",\r\n   \"productSpecification\": [{  \r\n      \"id\":\"productSpec42\"  \r\n   }],  \r\n    \"address\":{  \r\n      \"id\":\"jkfdjgkldjf\",  \r\n      \"href\" : \"http://xxx/address/jkfdjgkldjf\"\r\n   },\r\n   \"relatedParty\" : [{  \r\n     \"id\" : \"32\",  \r\n     \"href\" : \"http://xxxxx/individual/ 32\"  \r\n  }]\r\n}  \r\n"
+            },
+            {
+                "id": "c49f0a6e-51c0-3190-5eaf-3dbb2f853472",
+                "headers": "Content-Type: application/json\nAccept: application/json\n",
+                "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "POST",
+                "data": [],
+                "dataMode": "raw",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 201\"] = responseCode.code === 201;\n\ntests[\"Response contains ID \" + dataOut.id.toString()] = dataOut.id.toString() !== \"\";\n\ntests[\"Response contains Category \" + dataOut.category.toString()] = dataOut.category.toString() !== \"\";\n\ntests[\"Response contains StartDate \" + dataOut.startDate.toString()] = dataOut.startDate.toString() !== \"\";\n\ntests[\"Response contains EndDate \" + dataOut.endDate.toString()] = dataOut.endDate.toString() !== \"\";\n\ntests[\"Response contains Address \"] = (dataOut.address.id && dataOut.address.id.toString() !== \"\") || (dataOut.address.href && dataOut.address.href.toString() !== \"\");\n\nif( typeof(dataOut.relatedParty) !== 'undefined' && dataOut.relatedParty.length > 0) {\n    var parties = dataOut.relatedParty;\n    for(var i = 0; i < parties.length; i++) {\n        tests[\"Response contains RelatedParty \"] = (parties[i].id && parties[i].id.toString() !== \"\") || (parties[i].href && parties[i].href.toString() !== \"\");\n    }\n}\n\n\n\npostman.setGlobalVariable(\"APPOINTMENT_ID1\", dataOut.id.toString());\n\npostman.setGlobalVariable(\"lastResponse\" , dataOut);\npostman.setGlobalVariable(\"lastRequest\", request.data );\n\nvar dataIn = JSON.parse(request.data);\n\nconsole.log(\"request \" + dataIn);\nconsole.log(\"request type\" + typeof(dataIn));\n\n\nif (dataIn.externalId) {\n    tests[\"POST Body Response externalId equals Request externalId\"  ] = objectEquals(dataIn.externalId, dataOut.externalId);\n}\nif (dataIn.category) {\n    tests[\"POST Body Response category equals Request category\"  ] = objectEquals(dataIn.category, dataOut.category);\n}\nif (dataIn.description) {\n    tests[\"POST Body Response description equals Request description\"  ] = objectEquals(dataIn.description, dataOut.description);\n}\nif (dataIn.status) {\n    tests[\"POST Body Response status equals Request status\"  ] = objectEquals(dataIn.status, dataOut.status);\n}\nif (dataIn.alarm) {\n    tests[\"POST Body Response alarm equals Request alarm\"  ] = objectEquals(dataIn.alarm, dataOut.alarm);\n}\n\nif (dataIn.startDate) {\n    tests[\"POST Body Response startDate equals Request startDate\"  ] = objectEquals(dataIn.startDate, dataOut.startDate);\n}\nif (dataIn.endDate) {\n    tests[\"POST Body Response endDate equals Request endDate\"  ] = objectEquals(dataIn.endDate, dataOut.endDate);\n}\n\nif (dataIn.attachment) {\n    tests[\"POST Body Response attachment equals Request attachment\"  ] = objectEquals(dataIn.attachment, dataOut.attachment);\n}\n\nif (dataIn.relatedParty) {\n    tests[\"POST Body Response relatedParty equals Request relatedParty\"  ] = objectEquals(dataIn.relatedParty, dataOut.relatedParty);\n}\n\nif (dataIn.address) {\n    tests[\"POST Body Response address equals Request address\"  ] = objectEquals(dataIn.address, dataOut.address);\n}\nif (dataIn.relatedObject) {\n    tests[\"POST Body Response relatedObject equals Request relatedObject\"  ] = objectEquals(dataIn.relatedObject, dataOut.relatedObject);\n}\nif (dataIn.note) {\n    tests[\"POST Body Response note equals Request note\"  ] = objectEquals(dataIn.note, dataOut.note);\n}\n\n\n\n\n\n\n\n\n\nfunction objectEquals(v1, v2) {\n    if (typeof(v1) !== typeof(v2)) {\n         console.log(\"property typeof(v1) !==typeof(v2)\" + typeof(v1)  + typeof(v2) + \"==>\" + v1 + \"!=\" + v2);\n        return false;\n    }\n\n    if (typeof(v1) === \"function\") {\n        return v1.toString() === v2.toString();\n    }\n\n    if (v1 instanceof Object && v2 instanceof Object) {\n       \n        var r = true;\n        for (var k in v1) {\n            r = objectEquals(v1[k], v2[k]);\n            \n            if (!r) {\n                 tests[\"property \" + k.toString() + \"==>\" + v1[k] + \"!=\" + v2[k]] = false;\n                 console.log(\"property \" + k.toString() + \"==>\" + v1[k] + \"!=\" + v2[k]);\n                 postman.setGlobalVariable(\"unequal\" +  k.toString(), v1[k] + \"!=\" + v2[k]);\n                \n                return false;\n            } else {\n                 //tests[\"property \" + k.toString() + \"==>\" + v1[k] + \"=\" + v2[k]] = true;\n            }\n        }\n        return true;\n    } else {\n        return v1 === v2;\n    }\n}",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470643205018,
+                "name": "create an appointement  with juste mandatory fields",
+                "description": "create an appointement",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": [],
+                "rawModeData": "{\r\n   \"category\" : \"intervention\",  \r\n   \"startDate\" : \"2015-09-01T22:00:43+08:00\",  \r\n   \"endDate\" : \"2015-09-02T00:00:43+08:00\",  \r\n   \"relatedParty\" : [\r\n      {  \r\n         \"id\" : \"32\",  \r\n         \"href\" : \"http://xxxxx/individual/ 32\",  \r\n         \"role\" : \"customer\",  \r\n         \"name\" : \"John Doe\"  \r\n      }\r\n   ],  \r\n   \"address\" : {  \r\n      \"id\" : \"jkfdjgkldjf\",\r\n      \"href\" : \"http://xxx/address/jkfdjgkldjf\"\r\n   }\r\n}\r\n"
+            },
+            {
+                "id": "d53c8c68-d5f5-c0b3-4c36-25932d7c90a2",
+                "headers": "Content-Type: application/json\nAccept: application/json\n",
+                "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment/{{APPOINTMENT_ID1}}",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "GET",
+                "data": [],
+                "dataMode": "params",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\nvar lastRequest = globals[\"lastRequest\"];\n\nvar lastResponse= globals[\"lastResponse\"];\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Response contains ID \" + dataOut.id.toString()] = dataOut.id.toString() !== \"\";\n\ntests[\"Response contains Category \" + dataOut.category.toString()] = dataOut.category.toString() !== \"\";\n\ntests[\"Response contains StartDate \" + dataOut.startDate.toString()] = dataOut.startDate.toString() !== \"\";\n\ntests[\"Response contains EndDate \" + dataOut.endDate.toString()] = dataOut.endDate.toString() !== \"\";\n\ntests[\"Response contains Address \"] = (dataOut.address.id && dataOut.address.id.toString() !== \"\") || (dataOut.address.href && dataOut.address.href.toString() !== \"\");\n\nif( typeof(dataOut.relatedParty) !== 'undefined' && dataOut.relatedParty.length > 0) {\n    var parties = dataOut.relatedParty;\n    for(var i = 0; i < parties.length; i++) {\n        tests[\"Response contains RelatedParty \"] = (parties[i].id && parties[i].id.toString() !== \"\") || (parties[i].href && parties[i].href.toString() !== \"\");\n    }\n}\n\n\n\n\n\nvar dataIn = JSON.parse(lastRequest);\n\nconsole.log(\"request \" + dataIn);\nconsole.log(\"request type\" + typeof(dataIn));\n\n\nif (dataIn.externalId) {\n    tests[\"POST Body Response externalId equals Request externalId\"  ] = objectEquals(dataIn.externalId, dataOut.externalId);\n}\nif (dataIn.category) {\n    tests[\"POST Body Response category equals Request category\"  ] = objectEquals(dataIn.category, dataOut.category);\n}\nif (dataIn.description) {\n    tests[\"POST Body Response description equals Request description\"  ] = objectEquals(dataIn.description, dataOut.description);\n}\nif (dataIn.status) {\n    tests[\"POST Body Response status equals Request status\"  ] = objectEquals(dataIn.status, dataOut.status);\n}\nif (dataIn.alarm) {\n    tests[\"POST Body Response alarm equals Request alarm\"  ] = objectEquals(dataIn.alarm, dataOut.alarm);\n}\n\nif (dataIn.startDate) {\n    tests[\"POST Body Response startDate equals Request startDate\"  ] = objectEquals(dataIn.startDate, dataOut.startDate);\n}\nif (dataIn.endDate) {\n    tests[\"POST Body Response endDate equals Request endDate\"  ] = objectEquals(dataIn.endDate, dataOut.endDate);\n}\n\nif (dataIn.attachment) {\n    tests[\"POST Body Response attachment equals Request attachment\"  ] = objectEquals(dataIn.attachment, dataOut.attachment);\n}\n\nif (dataIn.relatedParty) {\n    tests[\"POST Body Response relatedParty equals Request relatedParty\"  ] = objectEquals(dataIn.relatedParty, dataOut.relatedParty);\n}\n\nif (dataIn.address) {\n    tests[\"POST Body Response address equals Request address\"  ] = objectEquals(dataIn.address, dataOut.address);\n}\nif (dataIn.relatedObject) {\n    tests[\"POST Body Response relatedObject equals Request relatedObject\"  ] = objectEquals(dataIn.relatedObject, dataOut.relatedObject);\n}\nif (dataIn.note) {\n    tests[\"POST Body Response note equals Request note\"  ] = objectEquals(dataIn.note, dataOut.note);\n}\n\n\n\n\n\n\n\n\n\nfunction objectEquals(v1, v2) {\n    if (typeof(v1) !== typeof(v2)) {\n         console.log(\"property typeof(v1) !==typeof(v2)\" + typeof(v1)  + typeof(v2) + \"==>\" + v1 + \"!=\" + v2);\n        return false;\n    }\n\n    if (typeof(v1) === \"function\") {\n        return v1.toString() === v2.toString();\n    }\n\n    if (v1 instanceof Object && v2 instanceof Object) {\n       \n        var r = true;\n        for (var k in v1) {\n            r = objectEquals(v1[k], v2[k]);\n            \n            if (!r) {\n                 tests[\"property \" + k.toString() + \"==>\" + v1[k] + \"!=\" + v2[k]] = false;\n                 console.log(\"property \" + k.toString() + \"==>\" + v1[k] + \"!=\" + v2[k]);\n                 postman.setGlobalVariable(\"unequal\" +  k.toString(), v1[k] + \"!=\" + v2[k]);\n                \n                return false;\n            } else {\n                 //tests[\"property \" + k.toString() + \"==>\" + v1[k] + \"=\" + v2[k]] = true;\n            }\n        }\n        return true;\n    } else {\n        return v1 === v2;\n    }\n}\n",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470373960974,
+                "name": "get  an  appointement by id",
+                "description": "get an appointement",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": []
+            },
+            {
+                "id": "de34d14f-b250-739a-ec35-d540ed11e9d3",
+                "headers": "Content-Type: application/json-patch+json\n//Accept: application/json-patch+json\n",
+                "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment/{{APPOINTMENT_ID2}}",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "PATCH",
+                "data": [],
+                "dataMode": "raw",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Response contains ID \" + dataOut.id.toString()] = dataOut.id.toString() !== \"\";\n\ntests[\"Response contains Category \" + dataOut.category.toString()] = dataOut.category.toString() !== \"\";\n\ntests[\"Response contains StartDate \" + dataOut.startDate.toString()] = dataOut.startDate.toString() !== \"\";\n\ntests[\"Response contains EndDate \" + dataOut.endDate.toString()] = dataOut.endDate.toString() !== \"\";\n\ntests[\"Response contains Address \"] = (dataOut.address.id && dataOut.address.id.toString() !== \"\") || (dataOut.address.href && dataOut.address.href.toString() !== \"\");\n\nif( typeof(dataOut.relatedParty) !== 'undefined' && dataOut.relatedParty.length > 0) {\n    var parties = dataOut.relatedParty;\n    for(var i = 0; i < parties.length; i++) {\n        tests[\"Response contains RelatedParty \"] = (parties[i].id && parties[i].id.toString() !== \"\") || (parties[i].href && parties[i].href.toString() !== \"\");\n    }\n}\n\n\n\n",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470645381445,
+                "name": "Canceled appointement json-patch",
+                "description": " with json-patch",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": [],
+                "rawModeData": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"Cancelled\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/relatedParty/-\",\n    \"value\": {\n      \"href\": \"http://xxxxx/individual/ 99\",\n      \"id\": \"99\",\n      \"role\": \"customer\",\n      \"name\": \"NewPerson\"\n    }\n  }\n\n]"
+            },
+            {
+                "id": "e20ef3a2-e5bf-2192-96dd-54530e072308",
+                "headers": "Content-Type: application/json\nAccept: application/json\n",
+                "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment/{{APPOINTMENT_ID1}}",
+                "preRequestScript": "",
+                "pathVariables": {},
+                "method": "PATCH",
+                "data": [],
+                "dataMode": "raw",
+                "version": 2,
+                "tests": "var dataOut = JSON.parse(responseBody);\n\ntests[\"Content-Type is present \" + postman.getResponseHeader(\"Content-type\")] = postman.getResponseHeader(\"Content-type\");\n\ntests[\"Status code is 200\"] = responseCode.code === 200;\n\ntests[\"Response contains ID \" + dataOut.id.toString()] = dataOut.id.toString() !== \"\";\n\ntests[\"Response contains Category \" + dataOut.category.toString()] = dataOut.category.toString() !== \"\";\n\ntests[\"Response contains StartDate \" + dataOut.startDate.toString()] = dataOut.startDate.toString() !== \"\";\n\ntests[\"Response contains EndDate \" + dataOut.endDate.toString()] = dataOut.endDate.toString() !== \"\";\n\ntests[\"Response contains Address \"] = (dataOut.address.id && dataOut.address.id.toString() !== \"\") || (dataOut.address.href && dataOut.address.href.toString() !== \"\");\n\nif( typeof(dataOut.relatedParty) !== 'undefined' && dataOut.relatedParty.length > 0) {\n    var parties = dataOut.relatedParty;\n    for(var i = 0; i < parties.length; i++) {\n        tests[\"Response contains RelatedParty \"] = (parties[i].id && parties[i].id.toString() !== \"\") || (parties[i].href && parties[i].href.toString() !== \"\");\n    }\n}\n\n\n\n",
+                "currentHelper": "normal",
+                "helperAttributes": {},
+                "time": 1470374007562,
+                "name": "Partial update appointement",
+                "description": "partial update appointement",
+                "collectionId": "e03e71a3-6dc3-258c-75b9-4fd2b2fff574",
+                "responses": [],
+                "rawModeData": "{\r\n   \"category\" : \"intervention\",  \r\n   \"description\" : \"A useful text to describe the appointment… MODIFIED\",  \r\n   \"status\" : \"Initialised\",  \r\n   \"startDate\" : \"2015-09-01T14:00:43.071Z\",  \r\n   \"endDate\" : \"2015-09-01T16:00:43.071Z\",  \r\n   \"alarm\" : true,  \r\n   \"attachment\":[  \r\n      {  \r\n         \"href\" : \"http://myDocumentServer/myRep/myDocument.pdf\"  \r\n      }  \r\n   ],  \r\n   \"relatedParty\" : [\r\n      {  \r\n         \"id\" : \"32\",  \r\n         \"href\" : \"http://xxxxx/individual/ 32\",  \r\n         \"role\" : \"customer\",  \r\n         \"name\" : \"John Doe\"  \r\n      }\r\n   ],  \r\n   \"relatedObject\":[  \r\n      {  \r\n         \"involvement\" : \"problemToSolve\",  \r\n         \"reference\" : \"http://xxxx/troubleTicket/789745465\"  \r\n      }  \r\n   ]  \r\n}\r\n"
+            }
+        ]
+    },
+    "folder": null,
+    "globals": {
+        "values": [
+            {
+                "key": "APPOINTMENT_ID1",
+                "value": "1",
+                "type": "text",
+                "name": "APPOINTMENT_ID1"
+            },
+            {
+                "key": "lastResponse",
+                "value": {
+                    "alarm": false,
+                    "attachment": [],
+                    "category": "intervention",
+                    "href": "http://localhost:8080/DSAppointment/api/appointment/v1/appointment/1",
+                    "id": "1",
+                    "status": "Initialised",
+                    "relatedParty": [
+                        {
+                            "href": "http://xxxxx/individual/ 32",
+                            "id": "32",
+                            "role": "customer",
+                            "name": "John Doe"
+                        }
+                    ],
+                    "address": {
+                        "id": "jkfdjgkldjf",
+                        "href": "http://xxx/address/jkfdjgkldjf"
+                    },
+                    "relatedObject": [],
+                    "note": [],
+                    "endDate": "2015-09-02T00:00:43+08:00",
+                    "startDate": "2015-09-01T22:00:43+08:00"
+                },
+                "type": "text",
+                "name": "lastResponse"
+            },
+            {
+                "key": "lastRequest",
+                "value": "{\r\n   \"category\" : \"intervention\",  \r\n   \"startDate\" : \"2015-09-01T22:00:43+08:00\",  \r\n   \"endDate\" : \"2015-09-02T00:00:43+08:00\",  \r\n   \"relatedParty\" : [\r\n      {  \r\n         \"id\" : \"32\",  \r\n         \"href\" : \"http://xxxxx/individual/ 32\",  \r\n         \"role\" : \"customer\",  \r\n         \"name\" : \"John Doe\"  \r\n      }\r\n   ],  \r\n   \"address\" : {  \r\n      \"id\" : \"jkfdjgkldjf\",\r\n      \"href\" : \"http://xxx/address/jkfdjgkldjf\"\r\n   }\r\n}\r\n",
+                "type": "text",
+                "name": "lastRequest"
+            },
+            {
+                "key": "APPOINTMENT_ID2",
+                "value": "5",
+                "type": "text",
+                "name": "APPOINTMENT_ID2"
+            },
+            {
+                "key": "lastResponsetmf-product-offering-qualification-001",
+                "value": {
+                    "alarm": false,
+                    "attachment": [
+                        {
+                            "href": "http://myDocumentServer/myRep/myDocument.pdf"
+                        }
+                    ],
+                    "category": "intervention",
+                    "href": "http://localhost:8080/DSAppointment/api/appointment/v1/appointment/5",
+                    "description": "A useful text to describe the appointment…",
+                    "externalId": "anExternalIDIfNeeded432113",
+                    "id": "5",
+                    "status": "Initialised",
+                    "relatedParty": [
+                        {
+                            "href": "http://xxxxx/individual/ 32",
+                            "id": "32",
+                            "role": "customer",
+                            "name": "John Doe"
+                        }
+                    ],
+                    "address": {
+                        "id": "jkfdjgkldjf",
+                        "href": "http://xxx/address/jkfdjgkldjf"
+                    },
+                    "relatedObject": [
+                        {
+                            "involvement": "problemToSolve",
+                            "reference": "http://xxxx/troubleTicket/789745465"
+                        }
+                    ],
+                    "note": [
+                        {
+                            "author": "Arthur Ewans",
+                            "text": " Alreay called the expert ",
+                            "date": "2015-09-01T22:40:43+08:00"
+                        }
+                    ],
+                    "endDate": "2015-09-02T00:00:43+08:00",
+                    "startDate": "2015-09-01T22:00:43+08:00"
+                },
+                "type": "text",
+                "name": "lastResponsetmf-product-offering-qualification-001"
+            },
+            {
+                "key": "lastRequesttmf-product-offering-qualification-001",
+                "value": "{\r\n    \"externalId\" : \"anExternalIDIfNeeded432113\",  \r\n   \"category\" : \"intervention\",  \r\n   \"description\" : \"A useful text to describe the appointment…\",  \r\n   \"status\" : \"Initialised\",  \r\n   \"startDate\" : \"2015-09-01T22:00:43+08:00\",  \r\n   \"endDate\" : \"2015-09-02T00:00:43+08:00\",  \r\n   \"alarm\" : false,  \r\n   \"attachment\":[  \r\n      {  \r\n         \"href\" : \"http://myDocumentServer/myRep/myDocument.pdf\"  \r\n      }  \r\n   ],  \r\n   \"relatedParty\" : [\r\n      {  \r\n         \"id\" : \"32\",  \r\n         \"href\" : \"http://xxxxx/individual/ 32\",  \r\n         \"role\" : \"customer\",  \r\n         \"name\" : \"John Doe\"  \r\n      }\r\n   ],  \r\n   \"address\" : {  \r\n      \"id\" : \"jkfdjgkldjf\",\r\n      \"href\" : \"http://xxx/address/jkfdjgkldjf\"\r\n   },  \r\n   \"relatedObject\":[  \r\n      {  \r\n         \"involvement\" : \"problemToSolve\",  \r\n         \"reference\" : \"http://xxxx/troubleTicket/789745465\"  \r\n      }  \r\n   ],\r\n   \"note\":[  \r\n      {  \r\n         \"date\":\"2015-09-01T22:40:43+08:00\",  \r\n         \"author\":\"Arthur Ewans\",\r\n         \"text\":\" Alreay called the expert \"\r\n      }  \r\n   ]  \r\n}\r\n",
+                "type": "text",
+                "name": "lastRequesttmf-product-offering-qualification-001"
+            }
+        ]
+    },
+    "results": [
+        {
+            "id": "c49f0a6e-51c0-3190-5eaf-3dbb2f853472",
+            "name": "create an appointement  with juste mandatory fields",
+            "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment",
+            "totalTime": 298,
+            "responseCode": {
+                "code": 201,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {
+                "Content-Type is present application/json": "application/json",
+                "Status code is 201": true,
+                "Response contains ID 1": true,
+                "Response contains Category intervention": true,
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                "Response contains Address ": true,
+                "Response contains RelatedParty ": true,
+                "POST Body Response category equals Request category": true,
+                "POST Body Response startDate equals Request startDate": true,
+                "POST Body Response endDate equals Request endDate": true,
+                "POST Body Response relatedParty equals Request relatedParty": true,
+                "POST Body Response address equals Request address": true
+            },
+            "totalPassFailCounts": {
+                "pass": 13,
+                "fail": 0
+            },
+            "testPassFailCounts": {
+                "Content-Type is present application/json": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Status code is 201": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains ID 1": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Category intervention": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Address ": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains RelatedParty ": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response category equals Request category": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response startDate equals Request startDate": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response endDate equals Request endDate": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response relatedParty equals Request relatedParty": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response address equals Request address": {
+                    "pass": 1,
+                    "fail": 0
+                }
+            },
+            "times": [],
+            "allTests": [
+                {
+                    "Content-Type is present application/json": "application/json",
+                    "Status code is 201": true,
+                    "Response contains ID 1": true,
+                    "Response contains Category intervention": true,
+                    "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                    "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                    "Response contains Address ": true,
+                    "Response contains RelatedParty ": true,
+                    "POST Body Response category equals Request category": true,
+                    "POST Body Response startDate equals Request startDate": true,
+                    "POST Body Response endDate equals Request endDate": true,
+                    "POST Body Response relatedParty equals Request relatedParty": true,
+                    "POST Body Response address equals Request address": true
+                }
+            ],
+            "time": 298,
+            "meanResponseTime": 298
+        },
+        {
+            "id": "7bc0ebd7-5bdc-e84e-ffbb-51a854962201",
+            "name": "create an appointement",
+            "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment",
+            "totalTime": 97,
+            "responseCode": {
+                "code": 201,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {
+                "Content-Type is present application/json": "application/json",
+                "Status code is 201": true,
+                "Response contains ID 5": true,
+                "Response contains Category intervention": true,
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                "Response contains Address ": true,
+                "Response contains RelatedParty ": true,
+                "POST Body Response externalId equals Request externalId": true,
+                "POST Body Response category equals Request category": true,
+                "POST Body Response description equals Request description": true,
+                "POST Body Response status equals Request status": true,
+                "POST Body Response startDate equals Request startDate": true,
+                "POST Body Response endDate equals Request endDate": true,
+                "POST Body Response attachment equals Request attachment": true,
+                "POST Body Response relatedParty equals Request relatedParty": true,
+                "POST Body Response address equals Request address": true,
+                "POST Body Response relatedObject equals Request relatedObject": true,
+                "POST Body Response note equals Request note": true
+            },
+            "totalPassFailCounts": {
+                "pass": 19,
+                "fail": 0
+            },
+            "testPassFailCounts": {
+                "Content-Type is present application/json": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Status code is 201": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains ID 5": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Category intervention": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Address ": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains RelatedParty ": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response externalId equals Request externalId": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response category equals Request category": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response description equals Request description": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response status equals Request status": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response startDate equals Request startDate": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response endDate equals Request endDate": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response attachment equals Request attachment": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response relatedParty equals Request relatedParty": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response address equals Request address": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response relatedObject equals Request relatedObject": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response note equals Request note": {
+                    "pass": 1,
+                    "fail": 0
+                }
+            },
+            "times": [],
+            "allTests": [
+                {
+                    "Content-Type is present application/json": "application/json",
+                    "Status code is 201": true,
+                    "Response contains ID 5": true,
+                    "Response contains Category intervention": true,
+                    "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                    "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                    "Response contains Address ": true,
+                    "Response contains RelatedParty ": true,
+                    "POST Body Response externalId equals Request externalId": true,
+                    "POST Body Response category equals Request category": true,
+                    "POST Body Response description equals Request description": true,
+                    "POST Body Response status equals Request status": true,
+                    "POST Body Response startDate equals Request startDate": true,
+                    "POST Body Response endDate equals Request endDate": true,
+                    "POST Body Response attachment equals Request attachment": true,
+                    "POST Body Response relatedParty equals Request relatedParty": true,
+                    "POST Body Response address equals Request address": true,
+                    "POST Body Response relatedObject equals Request relatedObject": true,
+                    "POST Body Response note equals Request note": true
+                }
+            ],
+            "time": 97,
+            "meanResponseTime": 97
+        },
+        {
+            "id": "87205aac-7fca-29a3-c572-d1a3959b50b7",
+            "name": "find appointement",
+            "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment",
+            "totalTime": 32,
+            "responseCode": {
+                "code": 200,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {
+                "Content-Type is present application/json": "application/json",
+                "Status code is 200": true,
+                "Response contains ID 1": true,
+                "Response contains Category intervention": true,
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                "Response contains Address ": true,
+                "Response contains RelatedParty ": true
+            },
+            "totalPassFailCounts": {
+                "pass": 8,
+                "fail": 0
+            },
+            "testPassFailCounts": {
+                "Content-Type is present application/json": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Status code is 200": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains ID 1": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Category intervention": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Address ": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains RelatedParty ": {
+                    "pass": 1,
+                    "fail": 0
+                }
+            },
+            "times": [],
+            "allTests": [
+                {
+                    "Content-Type is present application/json": "application/json",
+                    "Status code is 200": true,
+                    "Response contains ID 1": true,
+                    "Response contains Category intervention": true,
+                    "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                    "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                    "Response contains Address ": true,
+                    "Response contains RelatedParty ": true
+                }
+            ],
+            "time": 32,
+            "meanResponseTime": 32
+        },
+        {
+            "id": "d53c8c68-d5f5-c0b3-4c36-25932d7c90a2",
+            "name": "get  an  appointement by id",
+            "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment/{{APPOINTMENT_ID1}}",
+            "totalTime": 25,
+            "responseCode": {
+                "code": 200,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {
+                "Content-Type is present application/json": "application/json",
+                "Status code is 200": true,
+                "Response contains ID 1": true,
+                "Response contains Category intervention": true,
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                "Response contains Address ": true,
+                "Response contains RelatedParty ": true,
+                "POST Body Response category equals Request category": true,
+                "POST Body Response startDate equals Request startDate": true,
+                "POST Body Response endDate equals Request endDate": true,
+                "POST Body Response relatedParty equals Request relatedParty": true,
+                "POST Body Response address equals Request address": true
+            },
+            "totalPassFailCounts": {
+                "pass": 13,
+                "fail": 0
+            },
+            "testPassFailCounts": {
+                "Content-Type is present application/json": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Status code is 200": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains ID 1": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Category intervention": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Address ": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains RelatedParty ": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response category equals Request category": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response startDate equals Request startDate": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response endDate equals Request endDate": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response relatedParty equals Request relatedParty": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "POST Body Response address equals Request address": {
+                    "pass": 1,
+                    "fail": 0
+                }
+            },
+            "times": [],
+            "allTests": [
+                {
+                    "Content-Type is present application/json": "application/json",
+                    "Status code is 200": true,
+                    "Response contains ID 1": true,
+                    "Response contains Category intervention": true,
+                    "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                    "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                    "Response contains Address ": true,
+                    "Response contains RelatedParty ": true,
+                    "POST Body Response category equals Request category": true,
+                    "POST Body Response startDate equals Request startDate": true,
+                    "POST Body Response endDate equals Request endDate": true,
+                    "POST Body Response relatedParty equals Request relatedParty": true,
+                    "POST Body Response address equals Request address": true
+                }
+            ],
+            "time": 25,
+            "meanResponseTime": 25
+        },
+        {
+            "id": "e20ef3a2-e5bf-2192-96dd-54530e072308",
+            "name": "Partial update appointement",
+            "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment/{{APPOINTMENT_ID1}}",
+            "totalTime": 161,
+            "responseCode": {
+                "code": 200,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {
+                "Content-Type is present application/json": "application/json",
+                "Status code is 200": true,
+                "Response contains ID 1": true,
+                "Response contains Category intervention": true,
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                "Response contains Address ": true,
+                "Response contains RelatedParty ": true
+            },
+            "totalPassFailCounts": {
+                "pass": 8,
+                "fail": 0
+            },
+            "testPassFailCounts": {
+                "Content-Type is present application/json": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Status code is 200": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains ID 1": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Category intervention": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Address ": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains RelatedParty ": {
+                    "pass": 1,
+                    "fail": 0
+                }
+            },
+            "times": [],
+            "allTests": [
+                {
+                    "Content-Type is present application/json": "application/json",
+                    "Status code is 200": true,
+                    "Response contains ID 1": true,
+                    "Response contains Category intervention": true,
+                    "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                    "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                    "Response contains Address ": true,
+                    "Response contains RelatedParty ": true
+                }
+            ],
+            "time": 161,
+            "meanResponseTime": 161
+        },
+        {
+            "id": "de34d14f-b250-739a-ec35-d540ed11e9d3",
+            "name": "Canceled appointement json-patch",
+            "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment/{{APPOINTMENT_ID2}}",
+            "totalTime": 25,
+            "responseCode": {
+                "code": 500,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {},
+            "totalPassFailCounts": {
+                "pass": 0,
+                "fail": 0
+            },
+            "testPassFailCounts": {},
+            "times": [],
+            "allTests": [
+                {}
+            ],
+            "time": 25,
+            "meanResponseTime": 25
+        },
+        {
+            "id": "1a4e89b4-6b17-07a4-b7d4-a30014ca205b",
+            "name": "Canceled appointement json-patch copy",
+            "url": "{{Host}}/DSAppointment/api/appointment/v1/appointment/{{APPOINTMENT_ID2}}",
+            "totalTime": 174,
+            "responseCode": {
+                "code": 200,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {
+                "Content-Type is present application/json": "application/json",
+                "Status code is 200": true,
+                "Response contains ID 5": true,
+                "Response contains Category intervention": true,
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                "Response contains Address ": true,
+                "Response contains RelatedParty ": true
+            },
+            "totalPassFailCounts": {
+                "pass": 8,
+                "fail": 0
+            },
+            "testPassFailCounts": {
+                "Content-Type is present application/json": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Status code is 200": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains ID 5": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Category intervention": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains StartDate 2015-09-01T22:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains EndDate 2015-09-02T00:00:43+08:00": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains Address ": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains RelatedParty ": {
+                    "pass": 1,
+                    "fail": 0
+                }
+            },
+            "times": [],
+            "allTests": [
+                {
+                    "Content-Type is present application/json": "application/json",
+                    "Status code is 200": true,
+                    "Response contains ID 5": true,
+                    "Response contains Category intervention": true,
+                    "Response contains StartDate 2015-09-01T22:00:43+08:00": true,
+                    "Response contains EndDate 2015-09-02T00:00:43+08:00": true,
+                    "Response contains Address ": true,
+                    "Response contains RelatedParty ": true
+                }
+            ],
+            "time": 174,
+            "meanResponseTime": 174
+        },
+        {
+            "id": "af5c0cc9-ab76-3d9f-1ac1-8efe7bd45d6c",
+            "name": "create freeslot",
+            "url": "{{Host}}/DSAppointment/api/admin/freeSlot",
+            "totalTime": 52,
+            "responseCode": {
+                "code": 201,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {
+                "Content-Type is present application/json": "application/json",
+                "Status code is 201": true,
+                "Free slots are checked according to criteria ": true
+            },
+            "totalPassFailCounts": {
+                "pass": 3,
+                "fail": 0
+            },
+            "testPassFailCounts": {
+                "Content-Type is present application/json": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Status code is 201": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Free slots are checked according to criteria ": {
+                    "pass": 1,
+                    "fail": 0
+                }
+            },
+            "times": [],
+            "allTests": [
+                {
+                    "Content-Type is present application/json": "application/json",
+                    "Status code is 201": true,
+                    "Free slots are checked according to criteria ": true
+                }
+            ],
+            "time": 52,
+            "meanResponseTime": 52
+        },
+        {
+            "id": "b1ee0d24-9e1f-5779-1220-bf043fc8f44d",
+            "name": "search freeslot",
+            "url": "{{Host}}/DSAppointment/api/appointment/v1/freeSlot",
+            "totalTime": 40,
+            "responseCode": {
+                "code": 200,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {
+                "Content-Type is present application/json": "application/json",
+                "Status code is 200": true,
+                "Response contains RelatedParty ": true
+            },
+            "totalPassFailCounts": {
+                "pass": 3,
+                "fail": 0
+            },
+            "testPassFailCounts": {
+                "Content-Type is present application/json": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Status code is 200": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains RelatedParty ": {
+                    "pass": 1,
+                    "fail": 0
+                }
+            },
+            "times": [],
+            "allTests": [
+                {
+                    "Content-Type is present application/json": "application/json",
+                    "Status code is 200": true,
+                    "Response contains RelatedParty ": true
+                }
+            ],
+            "time": 40,
+            "meanResponseTime": 40
+        },
+        {
+            "id": "0f2a3c68-656e-8610-c5d8-e8bab4e9cfed",
+            "name": "search freeslot with appointment",
+            "url": "{{Host}}/DSAppointment/api/appointment/v1/freeSlot/search",
+            "totalTime": 33,
+            "responseCode": {
+                "code": 200,
+                "name": "",
+                "detail": ""
+            },
+            "tests": {
+                "Content-Type is present application/json": "application/json",
+                "Status code is 200": true,
+                "Response contains RelatedParty ": true
+            },
+            "totalPassFailCounts": {
+                "pass": 3,
+                "fail": 0
+            },
+            "testPassFailCounts": {
+                "Content-Type is present application/json": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Status code is 200": {
+                    "pass": 1,
+                    "fail": 0
+                },
+                "Response contains RelatedParty ": {
+                    "pass": 1,
+                    "fail": 0
+                }
+            },
+            "times": [],
+            "allTests": [
+                {
+                    "Content-Type is present application/json": "application/json",
+                    "Status code is 200": true,
+                    "Response contains RelatedParty ": true
+                }
+            ],
+            "time": 33,
+            "meanResponseTime": 33
+        }
+    ],
+    "environment": {
+        "id": "e9ff5be6-a134-95a0-3719-abe85cd8241b",
+        "name": "TMForum Local",
+        "values": [
+            {
+                "key": "Host",
+                "value": "http://localhost:8080",
+                "type": "text",
+                "name": "Host",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "billingManagementApi",
+                "value": "{{Host}}/DSBillingManagement/api/billingManagement/v2",
+                "type": "text",
+                "name": "billingManagementApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "billingManagementAdminApi",
+                "value": "{{Host}}/DSBillingManagement/api/admin",
+                "type": "text",
+                "name": "billingManagementAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "billingManagementSubscriberApi",
+                "value": "{{Host}}/DSBillingManagement/subscriber/api",
+                "type": "text",
+                "name": "billingManagementSubscriberApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "partyManagementApi",
+                "value": "{{Host}}/DSPartyManagement/api/partyManagement/v2",
+                "type": "text",
+                "name": "partyManagementApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "partyManagementAdminApi",
+                "value": "{{Host}}/DSPartyManagement/api/admin",
+                "type": "text",
+                "name": "partyManagementAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "partyManagementSubscriberApi",
+                "value": "{{Host}}/DSPartyManagement/subscriber/api",
+                "type": "text",
+                "name": "partyManagementSubscriberApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "customerManagementApi",
+                "value": "{{Host}}/DSCustomerManagement/api/customerManagement/v2",
+                "type": "text",
+                "name": "customerManagementApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "customerManagementAdminApi",
+                "value": "{{Host}}/DSCustomerManagement/api/admin",
+                "type": "text",
+                "name": "customerManagementAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "customerManagementSubscriberApi",
+                "value": "{{Host}}/DSCustomerManagement/subscriber/api",
+                "type": "text",
+                "name": "customerManagementSubscriberApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "productOrderingApi",
+                "value": "{{Host}}/DSProductOrdering/api/productOrdering/v2",
+                "type": "text",
+                "name": "productOrderingApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "productOrderingAdminApi",
+                "value": "{{Host}}/DSProductOrdering/api/admin",
+                "type": "text",
+                "name": "productOrderingAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "productOrderingSubscriberApi",
+                "value": "{{Host}}/DSProductOrdering/subscriber/api",
+                "type": "text",
+                "name": "productOrderingSubscriberApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "troubleTicketingApi",
+                "value": "{{Host}}/DSTroubleTicket/api/troubleTicketManagement/v2",
+                "type": "text",
+                "name": "troubleTicketingApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "troubleTicketingAdminApi",
+                "value": "{{Host}}/DSTroubleTicket/api/admin/troubleTicket",
+                "type": "text",
+                "name": "troubleTicketingAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "troubleTicketingSubscriberApi",
+                "value": "{{Host}}/DSTroubleTicket/subscriber/api",
+                "type": "text",
+                "name": "troubleTicketingSubscriberApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "productInventoryApi",
+                "value": "{{Host}}/DSProductInventory/api/productInventory/v2",
+                "type": "text",
+                "name": "productInventoryApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "productInventoryAdminApi",
+                "value": "{{Host}}/DSProductInventory/api/admin",
+                "type": "text",
+                "name": "productInventoryAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "productInventorySubscriberApi",
+                "value": "{{Host}}/DSProductInventory/subscriber/api",
+                "type": "text",
+                "name": "productInventorySubscriberApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "catalogManagementApi",
+                "value": "{{Host}}/DSProductCatalog/api/catalogManagement/v2",
+                "type": "text",
+                "name": "catalogManagementApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "catalogManagementAdminApi",
+                "value": "{{Host}}/DSProductCatalog/api/admin",
+                "type": "text",
+                "name": "catalogManagementAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "catalogManagementSubscriberApi",
+                "value": "{{Host}}/DSProductCatalog/subscriber/eventApi",
+                "type": "text",
+                "name": "catalogManagementSubscriberApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "slaManagementApi",
+                "value": "{{Host}}/DSLAManagement/api/slaManagement/v2",
+                "type": "text",
+                "name": "slaManagementApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "slaManagementSubscriberApi",
+                "value": "{{Host}}/DSLAManagement/subscriber/api",
+                "type": "text",
+                "name": "slaManagementSubscriberApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "slaManagementAdminApi",
+                "value": "{{Host}}/DSLAManagement/api/admin",
+                "type": "text",
+                "name": "slaManagementAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "usageManagementApi",
+                "value": "{{Host}}/DSUsageManagement/api/usageManagement/v2",
+                "type": "text",
+                "name": "usageManagementApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "usageManagementSubscriberApi",
+                "value": "{{Host}}/DSUsageManagement/subscriber/api",
+                "type": "text",
+                "name": "usageManagementSubscriberApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "usageManagementAdminApi",
+                "value": "{{Host}}/DSUsageManagement/api/admin/usage",
+                "type": "text",
+                "name": "usageManagementAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "testName",
+                "value": "tmf-product-offering-qualification-001",
+                "type": "text",
+                "name": "testName",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "url1",
+                "value": "http://env-0693795.jelastic.servint.net/DSCustomerManagement/api/customerManagement/v2",
+                "type": "text",
+                "name": "url1",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "appointmentManagementApi",
+                "value": "{{Host}}/DSAppointmentManagement/api/appointment/v1",
+                "type": "text",
+                "name": "appointmentManagementApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "addressManagementApi",
+                "value": "{{Host}}/DSAddressManagement/api/addressManagement/v1",
+                "type": "text",
+                "name": "addressManagementApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "addressManagementAdminApi",
+                "value": "{{Host}}/DSAddressManagement/api/admin",
+                "type": "text",
+                "name": "addressManagementAdminApi",
+                "enabled": true,
+                "hovered": false
+            },
+            {
+                "key": "quoteManagementApi",
+                "value": "{{Host}}/DSQuoteManagement/api/quoteManagement/v1",
+                "type": "text",
+                "name": "quoteManagementApi",
+                "enabled": true,
+                "hovered": false
+            }
+        ],
+        "team": null,
+        "timestamp": 1469155606077,
+        "synced": false,
+        "syncedFilename": "",
+        "isDeleted": false
+    },
+    "delay": 0
+}

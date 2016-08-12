@@ -80,6 +80,8 @@ public class AppointmentFacade extends AbstractFacade<Appointment> {
 
         if (null == entity.getEndDate()) {
             throw new BadUsageException(ExceptionType.BAD_USAGE_MANDATORY_FIELDS, "EndDate is mandatory");
+        }else if (entity.getStartDate().after(entity.getEndDate())) {
+            throw new BadUsageException(ExceptionType.BAD_USAGE_MANDATORY_FIELDS, "EndDate must be later than StartDate");
         }
 
         if (entity.isAlarm()) {
@@ -90,6 +92,11 @@ public class AppointmentFacade extends AbstractFacade<Appointment> {
 
         if (null == entity.getAddress()) {
             throw new BadUsageException(ExceptionType.BAD_USAGE_MANDATORY_FIELDS, "Address id or href must be field is mandatory");
+        }else {
+            if ((null == entity.getAddress().getId() || entity.getAddress().getId().isEmpty())
+                    &&(null == entity.getAddress().getHref()|| entity.getAddress().getHref().isEmpty())){
+                throw new BadUsageException(ExceptionType.BAD_USAGE_MANDATORY_FIELDS, "Address id or href must be field is mandatory");
+            }
         }
 
         if (null == entity.getRelatedParty() || entity.getRelatedParty().isEmpty()) {

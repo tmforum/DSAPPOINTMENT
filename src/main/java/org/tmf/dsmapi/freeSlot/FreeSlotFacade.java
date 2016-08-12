@@ -17,11 +17,22 @@ import org.tmf.dsmapi.freeSlot.event.FreeSlotEventPublisherLocal;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.persistence.Query;
+import org.eclipse.persistence.jpa.JpaHelper;
+import org.eclipse.persistence.queries.QueryByExamplePolicy;
+import org.eclipse.persistence.queries.ReadAllQuery;
+import org.eclipse.persistence.queries.ReadObjectQuery;
+import static org.eclipse.persistence.sessions.SessionProfiler.QueryPreparation;
+import org.tmf.dsmapi.appointment.model.AddressRef;
 import org.tmf.dsmapi.appointment.model.RelatedObject;
 import org.tmf.dsmapi.appointment.model.RelatedPartyRef;
 import org.tmf.dsmapi.appointment.model.Schedule;
 import org.tmf.dsmapi.commons.utils.FreeSlotFactory;
+import org.tmf.dsmapi.service.qualification.template.QueryPreparation;
 
 @Stateless
 public class FreeSlotFacade extends AbstractFacade<FreeSlot> {
@@ -104,7 +115,8 @@ public class FreeSlotFacade extends AbstractFacade<FreeSlot> {
          */
     }
 
-    public List<FreeSlot> checkFreeSlot(Schedule schedule) throws BadUsageException {
+    public FreeSlot checkFreeSlot(Schedule schedule) throws BadUsageException {
+        FreeSlot slot = new FreeSlot();
         if (null == schedule.getMarketSegment()
                 || schedule.getMarketSegment().isEmpty()) {
             throw new BadUsageException(ExceptionType.BAD_USAGE_MANDATORY_FIELDS, "marketSegment is mandatory");
@@ -124,6 +136,10 @@ public class FreeSlotFacade extends AbstractFacade<FreeSlot> {
             } else {
                 if (null == schedule.getEndDate()) {
                     throw new BadUsageException(ExceptionType.BAD_USAGE_MANDATORY_FIELDS, "endDate must be filled if startDate is filled");
+                }else {
+                    if (schedule.getStartDate().after(schedule.getEndDate())) {
+                        throw new BadUsageException(ExceptionType.BAD_USAGE_MANDATORY_FIELDS, "endDate must be later than startDate");
+                    }
                 }
             }
         }
@@ -152,8 +168,22 @@ public class FreeSlotFacade extends AbstractFacade<FreeSlot> {
         }
 
         //bouchon
-        List<FreeSlot> l_freeSlots = FreeSlotFactory.createListeFreeSlot();
-        return l_freeSlots;
+        slot.setRelatedParty(schedule.getRelatedParty());
+        slot.setEndDate(schedule.getEndDate());
+        slot.setStartDate(schedule.getStartDate());
+        return slot;
 
     }
+    
+    public List<FreeSlot> findByCriteria(FreeSlot slot) throws BadUsageException {
+        QueryByExamplePolicy policy = new QueryByExamplePolicy();
+        policy.excludeDefaultPrimitiveValues();
+        ReadAllQuery q = new ReadAllQuery(slot, policy);
+        Query query = JpaHelper.createQuery(q, em);
+
+        List<FreeSlot> retList = (List<FreeSlot>)query.getResultList();
+        
+        return retList;
+    }
+
 }

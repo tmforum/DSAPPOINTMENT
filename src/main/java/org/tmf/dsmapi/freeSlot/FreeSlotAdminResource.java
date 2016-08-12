@@ -75,6 +75,7 @@ public class FreeSlotAdminResource {
         stat.setPreviousRows(previousRows);
 
         // 201 OK
+        //return  Response.status(Response.Status.CREATED).entity(entities).build();
         return Response.created(null).
                 entity(stat).
                 build();

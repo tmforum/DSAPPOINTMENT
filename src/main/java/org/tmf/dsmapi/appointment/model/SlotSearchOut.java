@@ -63,7 +63,7 @@ public class SlotSearchOut
 {
 
     private final static long serialVersionUID = 11L;
-    protected List<FreeSlot> slots;
+    protected List<FreeSlot> freeSlot;
     
     protected Long hjid;
 
@@ -93,19 +93,19 @@ public class SlotSearchOut
         CascadeType.ALL
     })
     @JoinColumn(name = "SLOTS_SLOT_SEARCH_OUT_HJID")
-    public List<FreeSlot> getSlots() {
-        if (slots == null) {
-            slots = new ArrayList<FreeSlot>();
+    public List<FreeSlot> getFreeSlot() {
+        if (freeSlot == null) {
+            freeSlot = new ArrayList<FreeSlot>();
         }
-        return this.slots;
+        return this.freeSlot;
     }
 
     /**
      * 
      * 
      */
-    public void setSlots(List<FreeSlot> slots) {
-        this.slots = slots;
+    public void setFreeSlot(List<FreeSlot> slots) {
+        this.freeSlot = slots;
     }
 
     /**
