@@ -18,7 +18,7 @@
         <env>local</env>
         <hyperjaxb.version>0.6.0</hyperjaxb.version>
         <jersey.version>2.15</jersey.version>
-        <jackson.version>2.5.3</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
 	<jackson-jaxrs-base.version>2.4.4</jackson-jaxrs-base.version>
         <eclipselink.version>2.5.2</eclipselink.version>
         <!-- Set the contextRoot for this RI -->
